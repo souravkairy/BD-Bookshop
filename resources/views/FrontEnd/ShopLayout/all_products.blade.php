@@ -187,7 +187,7 @@
             </div>
             <!-- /toolbox -->
            <div class="row small-gutters">
-               @foreach ($fetchdata as $row)
+               @forelse ($fetchdata as $row)
                 <div class="col-6 col-md-3">
                     <div class="grid_item">
                         @if ($row->discount == true)
@@ -225,7 +225,7 @@
                         @endif
                         </div>
                         <ul>
-                            <li><a href="#0" class="tooltip-1" data-toggle="tooltip" data-placement="left" title="Add to favorites"><i class="ti-heart"></i><span>Add to favorites</span></a></li>
+                            {{-- <li><a href="#0" class="tooltip-1" data-toggle="tooltip" data-placement="left" title="Add to favorites"><i class="ti-heart"></i><span>Add to favorites</span></a></li> --}}
                             {{-- <li><a href="#0" class="tooltip-1" data-toggle="tooltip" data-placement="left" title="Add to compare"><i class="ti-control-shuffle"></i><span>Add to compare</span></a></li> --}}
                             <li><a href="{{url('product_details/'.$row->id .'/' .$row->p_name)}}" class="tooltip-1" data-toggle="tooltip" data-placement="left" title="Add to cart"><i class="ti-shopping-cart"></i><span>Add to cart</span></a></li>
                         </ul>
@@ -233,27 +233,14 @@
                     <!-- /grid_item -->
                 </div>
 
-                @endforeach
+                @empty
+                <h2>No Book Found.....</h2>
+                @endforelse
 
             </div>
             <!-- /row -->
-            <div class="pagination__wrapper">
-                <ul class="pagination">
-                    <li><a href="#0" class="prev" title="previous page">&#10094;</a></li>
-                    <li>
-                        <a href="#0" class="active">1</a>
-                    </li>
-                    <li>
-                        <a href="#0">2</a>
-                    </li>
-                    <li>
-                        <a href="#0">3</a>
-                    </li>
-                    <li>
-                        <a href="#0">4</a>
-                    </li>
-                    <li><a href="#0" class="next" title="next page">&#10095;</a></li>
-                </ul>
+            <div class="d-flex justify-content-center text-center">
+                {{$fetchdata->links("pagination::bootstrap-4") }}
             </div>
         </div>
         <!-- /col -->

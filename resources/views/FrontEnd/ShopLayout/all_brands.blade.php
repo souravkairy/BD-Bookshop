@@ -17,10 +17,13 @@ $brand = DB::table('brand')->get();
                 <h1>Latest Jobs News </h1>
             </div>
             <!-- /page_header -->
-            {{-- <div class="search-input">
-                <input type="text" placeholder="Search question or article...">
-                <button type="submit"><i class="ti-search"></i></button>
-            </div> --}}
+            <div class="search-input">
+                <form action="{{url('search-data-all')}}" method="POST">
+                    @csrf
+                    <input type="text" placeholder="Search over 10.000 products" name="search" class="typesearch">
+                    <button type="submit"><i class="header-icon_search_custom"></i></button>
+                </form>
+            </div>
             <!-- /search-input -->
 
             <div class="row">

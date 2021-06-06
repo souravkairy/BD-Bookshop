@@ -32,7 +32,7 @@ class ProductsController extends Controller
     }
     public function products($id,$name)
     {
-        $fetchPdata = DB::table('product')->where('sub_cat_id',$id)->get();
+        $fetchPdata = DB::table('product')->where('sub_cat_id',$id)->paginate(24);;
 
         $header = view('FrontEnd/MasterLayout/header');
         $all_s_products = view('FrontEnd/ShopLayout/all_s_products')
@@ -71,7 +71,7 @@ class ProductsController extends Controller
         ->orWhere('unit',"LIKE" ,"%{$request->search}%")
         ->orWhere('subject',"LIKE" ,"%{$request->search}%")
         ->orWhere('p_name',"LIKE" ,"%{$request->search}%")
-        ->get();
+        ->paginate(16);
 
         $header = view('FrontEnd/MasterLayout/header');
         $all_s_products = view('FrontEnd/ShopLayout/all_products')
@@ -107,6 +107,39 @@ class ProductsController extends Controller
         return view('FrontEnd/MasterLayout/master')
                     ->with('header',$header)
                     ->with('topSellingProducts',$job_details)
+                    ->with('footer',$footer);
+    }
+    public function all_author()
+    {
+        $header = view('FrontEnd/MasterLayout/header');
+        $all_author = view('FrontEnd/ShopLayout/all_author');
+
+        $footer = view('FrontEnd/MasterLayout/footer');
+        return view('FrontEnd/MasterLayout/master')
+                    ->with('header',$header)
+                    ->with('topSellingProducts',$all_author)
+                    ->with('footer',$footer);
+    }
+    public function all_publishers()
+    {
+        $header = view('FrontEnd/MasterLayout/header');
+        $all_publishers = view('FrontEnd/ShopLayout/all_publishers');
+
+        $footer = view('FrontEnd/MasterLayout/footer');
+        return view('FrontEnd/MasterLayout/master')
+                    ->with('header',$header)
+                    ->with('topSellingProducts',$all_publishers)
+                    ->with('footer',$footer);
+    }
+    public function all_subjects()
+    {
+        $header = view('FrontEnd/MasterLayout/header');
+        $all_subjects = view('FrontEnd/ShopLayout/all_subjects');
+
+        $footer = view('FrontEnd/MasterLayout/footer');
+        return view('FrontEnd/MasterLayout/master')
+                    ->with('header',$header)
+                    ->with('topSellingProducts',$all_subjects)
                     ->with('footer',$footer);
     }
 

@@ -92,16 +92,12 @@
 												</ul>
 											</div>
                                             @endforeach
-
-											{{-- <div class="col-lg-3 d-xl-block d-lg-block d-md-none d-sm-none d-none">
-												<div class="banner_menu">
-													<a href="#0">
-														<img src="{{asset('public/frontEnd/img/banner_menu.jpg')}}" width="400" height="550" alt="" class="img-fluid lazy">
-													</a>
-												</div>
-											</div> --}}
 										</div>
-										<!-- /row -->
+                                        <a class="text-right" href="{{url('all_author')}}">See More...</a>
+                                   @if ($product->count() > 42)
+                                   <a class="text-right" href="{{url('all_author')}}">See More...</a>
+                                   @else
+                                   @endif
 									</div>
 									<!-- /menu-wrapper -->
 								</li>
@@ -118,6 +114,10 @@
 											</div>
                                             @endforeach
 										</div>
+                                        @if ($product->count() > 42)
+                                        <a class="text-right" href="{{url('all_publishers')}}">See More...</a>
+                                        @else
+                                        @endif
 										<!-- /row -->
 									</div>
 									<!-- /menu-wrapper -->
@@ -130,11 +130,14 @@
                                             <div class="col-lg-2">
 												<ul>
                                                     <li><a href="{{url('search/'.$row->subject)}}">{{$row->subject}}</a></li>
-
 												</ul>
 											</div>
                                             @endforeach
 										</div>
+                                        @if ($product->count() > 42)
+                                        <a class="text-right" href="{{url('all_subjects')}}">See More...</a>
+                                        @else
+                                        @endif
 										<!-- /row -->
 									</div>
 									<!-- /menu-wrapper -->
@@ -148,26 +151,31 @@
                                             <div class="col-lg-2">
 												<h3>{{$row->category_name}}</h3>
 												<ul>
-													<li><a href="{{url('catproducts/'.$row->id. '/' .$row->category_name)}}">All</a></li>
+
                                                     @php
-                                                        $sub_cat = DB::table('sub_category')->where('category_id',$row->id)->get();
+                                                        $sub_cat = DB::table('sub_category')->where('category_id',$row->id)->limit('6')->get();
                                                     @endphp
                                                     @foreach ($sub_cat as $item)
                                                     <li><a href="{{url('products/'.$item->id. '/' .$item->sub_category_name)}}">{{$item->sub_category_name}}</a></li>
                                                     @endforeach
 
 												</ul>
+                                                @if ( $sub_cat->count() == 6)
+                                                <a href="">See More..</a>
+                                                @else
+                                                @endif
+
 											</div>
                                             @endforeach
 
-
+{{--
 											<div class="col-lg-2 d-xl-block d-lg-block d-md-none d-sm-none d-none f-right">
 												<div class="banner_menu">
 													<a href="#0">
 														<img src="{{asset('public/frontEnd/img/banner_menu.jpg')}}" width="400" height="550" alt="" class="img-fluid lazy">
 													</a>
 												</div>
-											</div>
+											</div> --}}
 										</div>
 										<!-- /row -->
 									</div>
@@ -288,7 +296,7 @@
 								<!-- /dropdown-cart-->
 							</li>
 							<li>
-								<a href="#0" class="wishlist"><span>Wishlist</span></a>
+								{{-- <a href="#0" class="wishlist"><span>Wishlist</span></a> --}}
 							</li>
 							<li>
 								<div class="dropdown dropdown-access">

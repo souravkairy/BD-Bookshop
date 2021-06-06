@@ -12,7 +12,7 @@
         <h2>নতুন প্রকাশিত বইসমূহ
         </h2>
         <span>Products</span>
-        <p>Cum doctus civibus efficiantur in imperdiet deterruisset</p>
+        {{-- <p>Cum doctus civibus efficiantur in imperdiet deterruisset</p> --}}
     </div>
     <div class="owl-carousel owl-theme products_carousel">
         @foreach ($productData as $row)
@@ -58,7 +58,7 @@
                     @endif
                     </div>
                     <ul>
-                        <li><a href="#0" class="tooltip-1" data-toggle="tooltip" data-placement="left" title="Add to favorites"><i class="ti-heart"></i><span>Add to favorites</span></a></li>
+                        {{-- <li><a href="#0" class="tooltip-1" data-toggle="tooltip" data-placement="left" title="Add to favorites"><i class="ti-heart"></i><span>Add to favorites</span></a></li> --}}
                         {{-- <li><a href="#0" class="tooltip-1" data-toggle="tooltip" data-placement="left" title="Add to compare"><i class="ti-control-shuffle"></i><span>Add to compare</span></a></li> --}}
                         {{-- <li><a href="javascript:;" class="tooltip-1 addtocart" data-id="{{$row->id}}" data-toggle="tooltip" data-placement="left" title="Add to cart"><i class="ti-shopping-cart"></i><span>Add to cart</span></a> --}}
 

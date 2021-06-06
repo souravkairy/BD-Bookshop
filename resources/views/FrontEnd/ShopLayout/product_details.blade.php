@@ -69,14 +69,13 @@
                             </div>
                         </div> --}}
 
-                        <div class="row">
+                        {{-- <div class="row">
                             <label class="col-xl-5 col-lg-5  col-md-6 col-6"><strong>Stock</strong></label>
                             <div class="col-xl-4 col-lg-5 col-md-6 col-6">
-
                                  <h3 class="m-auto">Available({{$product_details->qty}})</h3>
 
                             </div>
-                        </div>
+                        </div> --}}
                         {{-- <div class="row">
                             <label class="col-xl-5 col-lg-5 col-md-6 col-6"><strong>Size</strong> - Size Guide <a href="#0" data-toggle="modal" data-target="#size-modal"><i class="ti-help-alt"></i></a></label>
                             <div class="col-xl-4 col-lg-5 col-md-6 col-6">

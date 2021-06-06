@@ -17,6 +17,11 @@ Route::get('/search/{mt}', 'App\Http\Controllers\FrontEnd\ProductsController@sea
 Route::post('/search-data-all', 'App\Http\Controllers\FrontEnd\ProductsController@search_name');
 Route::get('/product_details/{id}/{name}', 'App\Http\Controllers\FrontEnd\ProductsController@product_details');
 
+
+Route::get('/all_author', 'App\Http\Controllers\FrontEnd\ProductsController@all_author');
+Route::get('/all_publishers', 'App\Http\Controllers\FrontEnd\ProductsController@all_publishers');
+Route::get('/all_subjects', 'App\Http\Controllers\FrontEnd\ProductsController@all_subjects');
+
 // Route::get('/addcart/{id}', 'App\Http\Controllers\FrontEnd\ShoppingController@addcart');
 Route::post('/addcart', 'App\Http\Controllers\FrontEnd\ShoppingController@addcart');
 
@@ -45,6 +50,7 @@ Route::post('/check_customer', 'App\Http\Controllers\FrontEnd\CustomerController
 
 Route::post('/check_customer', 'App\Http\Controllers\FrontEnd\CustomerController@check_customer');
 Route::get('searchdata', 'App\Http\Controllers\FrontEnd\CustomerController@search_data_all')->name('searchdata');
+
 
 
 
