@@ -2,6 +2,7 @@
     $cat = DB::table('category')->get();
     $cart_details = Cart::content();
     $product = DB::table('product')->get();
+    $site_setting = DB::table('site_setting_tabel')->first();
 
 @endphp
 @extends('FrontEnd.MasterLayout.master')
@@ -93,7 +94,6 @@
 											</div>
                                             @endforeach
 										</div>
-                                        <a class="text-right" href="{{url('all_author')}}">See More...</a>
                                    @if ($product->count() > 42)
                                    <a class="text-right" href="{{url('all_author')}}">See More...</a>
                                    @else
@@ -204,7 +204,7 @@
 						<!--/main-menu -->
 					</nav>
 					<div class="col-xl-2 col-lg-2 d-lg-flex align-items-center justify-content-end text-right">
-						<a class="phone_top" href="tel://9438843343"><strong><span>Need Help?</span>+88 01797 338 420</strong></a>
+						<a class="phone_top" href="tel://9438843343"><strong><span>Need Help?</span>{!!$site_setting->contact_number!!}</strong></a>
 					</div>
 				</div>
 				<!-- /row -->
@@ -330,7 +330,7 @@
 											</li> --}}
 
                                             <li>
-												<a href="help.html"><i class="ti-help-alt"></i>{{ Session::get('name')}}</a>
+												<a href="#"><i class="ti-help-alt"></i>{{ Session::get('name')}}</a>
 											</li>
 										</ul>
                                         @else

@@ -26,7 +26,7 @@
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-right">
-                                    <li class="breadcrumb-item"><a href="{{ url('Admin-Dashboard') }}">Allaia</a></li>
+                                    <li class="breadcrumb-item"><a href="{{ url('Admin-Dashboard') }}">BDBOOKSHOP</a></li>
                                     <li class="breadcrumb-item"><a href="{{ url('all_products') }}">Products</a></li>
                                 </ol>
                             </div>

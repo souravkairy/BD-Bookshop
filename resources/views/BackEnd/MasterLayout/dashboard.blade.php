@@ -4,6 +4,13 @@
     $tb = DB::table('product')->where('status',1)->count();
     $tc = DB::table('customer')->where('status',1)->count();
     $tr = DB::table('order')->where('status',3)->sum('total');
+    $pending_orders = DB::table('order')
+                    ->join('customer','order.c_id','customer.id')
+                    ->select('order.*','customer.name','customer.mb1')
+                    ->orderBy('id', 'desc')
+                    ->limit(10)
+                    ->get();
+
 @endphp
 
 @extends('BackEnd.MasterLayout.master')
@@ -19,7 +26,7 @@
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-right">
-                            <li class="breadcrumb-item"><a href="javascript:void(0);">Stexo</a></li>
+                            <li class="breadcrumb-item"><a href="javascript:void(0);">BDBOOKSHOP</a></li>
                             <li class="breadcrumb-item active">Dashboard</li>
                         </ol>
                     </div>
@@ -175,118 +182,46 @@
                 </div>
 
             </div>
-
-
             <!-- START ROW -->
             <div class="row">
                 <div class="col-xl-12">
                     <div class="card m-b-30">
                         <div class="card-body">
-                            <h4 class="mt-0 header-title mb-4">Active Deals</h4>
+                            <h4 class="mt-0 header-title mb-4">Last 10 Order's Status</h4>
                             <div class="table-responsive">
                                 <table class="table table-hover">
                                     <thead>
                                         <tr>
                                             <th scope="col">Name</th>
-                                            <th scope="col">Status</th>
                                             <th scope="col">Amount</th>
                                             <th scope="col">Contact</th>
-                                            <th scope="col">Location</th>
-                                            <th scope="col" colspan="2">Date</th>
+                                            <th scope="col">Order Date</th>
+                                            <th scope="col">Status</th>
+
 
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @forelse ($pending_orders as $item)
                                         <tr>
-                                            <td>Philip Smead</td>
-                                            <td><span class="badge badge-success">Delivered</span></td>
-                                            <td>$9,420,000</td>
-                                            <td>
-                                                <div>
-                                                    <img src="{{asset('public/BackEnd/assets/images/users/user-2.jpg')}}" alt="" class="thumb-md rounded-circle mr-2"> Philip Smead
-                                                </div>
-                                            </td>
-                                            <td>Houston, TX 77074</td>
-                                            <td>15/1/2018</td>
+                                            <td>{{$item->name}}</td>
+                                            <td>{{$item->total}}</td>
+                                            <td>{{$item->mb1}}</td>
+                                            <td>{{$item->date}}</td>
 
-                                            <td>
-                                                <div>
-                                                    <a href="#" class="btn btn-primary btn-sm">Edit</a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Brent Shipley</td>
+                                            @if ($item->status == 0 )
                                             <td><span class="badge badge-warning">Pending</span></td>
-                                            <td>$3,120,000</td>
-                                            <td>
-                                                <div>
-                                                    <img src="{{asset('public/BackEnd/assets/images/users/user-3.jpg')}}" alt="" class="thumb-md rounded-circle mr-2"> Brent Shipley
-                                                </div>
-                                            </td>
-                                            <td>Oakland, CA 94612</td>
-                                            <td>16/1/2019</td>
-
-                                            <td>
-                                                <div>
-                                                    <a href="#" class="btn btn-primary btn-sm">Edit</a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Robert Sitton</td>
-                                            <td><span class="badge badge-success">Delivered</span></td>
-                                            <td>$6,360,000</td>
-                                            <td>
-                                                <div>
-                                                    <img src="{{asset('public/BackEnd/assets/images/users/user-4.jpg')}}" alt="" class="thumb-md rounded-circle mr-2"> Robert Sitton
-                                                </div>
-                                            </td>
-                                            <td>Hebron, ME 04238</td>
-                                            <td>17/1/2019</td>
-
-                                            <td>
-                                                <div>
-                                                    <a href="#" class="btn btn-primary btn-sm">Edit</a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Alberto Jackson</td>
+                                            @elseif($item->status == 2)
+                                            <td><span class="badge badge-primary">Delivery In Progress</span></td>
+                                            @elseif($item->status == 3)
+                                            <td><span class="badge badge-success">Delivery Done</span></td>
+                                            @elseif($item->status == 4)
                                             <td><span class="badge badge-danger">Cancel</span></td>
-                                            <td>$5,200,000</td>
-                                            <td>
-                                                <div>
-                                                    <img src="{{asset('public/BackEnd/assets/images/users/user-5.jpg')}}" alt="" class="thumb-md rounded-circle mr-2"> Alberto Jackson
-                                                </div>
-                                            </td>
-                                            <td>Salinas, CA 93901</td>
-                                            <td>18/1/2019</td>
-
-                                            <td>
-                                                <div>
-                                                    <a href="#" class="btn btn-primary btn-sm">Edit</a>
-                                                </div>
-                                            </td>
+                                            @endif
                                         </tr>
-                                        <tr>
-                                            <td>David Sanchez</td>
-                                            <td><span class="badge badge-success">Delivered</span></td>
-                                            <td>$7,250,000</td>
-                                            <td>
-                                                <div>
-                                                    <img src="{{asset('public/BackEnd/assets/images/users/user-6.jpg')}}" alt="" class="thumb-md rounded-circle mr-2"> David Sanchez
-                                                </div>
-                                            </td>
-                                            <td>Cincinnati, OH 45202</td>
-                                            <td>19/1/2019</td>
+                                        @empty
 
-                                            <td>
-                                                <div>
-                                                    <a href="#" class="btn btn-primary btn-sm">Edit</a>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                        @endforelse
                                     </tbody>
                                 </table>
                             </div>

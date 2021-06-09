@@ -1,6 +1,6 @@
 @php
     $sub_category = DB::table('sub_category')->orderBy('id','desc')->limit(6)->get();
-
+    $site_setting = DB::table('site_setting_tabel')->first();
 @endphp
 @extends('FrontEnd.MasterLayout.master')
 @section('footer')
@@ -37,9 +37,9 @@
                     <h3 data-target="#collapse_3">Contacts</h3>
                 <div class="collapse dont-collapse-sm contacts" id="collapse_3">
                     <ul>
-                        <li><i class="ti-home"></i>97845 Baker st. 567<br>Los Angeles - US</li>
-                        <li><i class="ti-headphone-alt"></i>+94 423-23-221</li>
-                        <li><i class="ti-email"></i><a href="#0">info@allaia.com</a></li>
+                        <li><i class="ti-home"></i>{!! $site_setting->address!!}</li>
+                        <li><i class="ti-headphone-alt"></i>{!! $site_setting->contact_number!!}</li>
+                        <li><i class="ti-email"></i><a href="#0">{!! $site_setting->email!!}</a></li>
                     </ul>
                 </div>
             </div>

@@ -1,3 +1,13 @@
+@php
+        $pending_orders = DB::table('order')
+                    ->where('status',0)
+                    ->limit(4)
+                    ->get();
+        $Allpending_orders = DB::table('order')
+                    ->where('status',0)
+                    ->get();
+@endphp
+
 @extends('BackEnd.MasterLayout.master')
 @section('sidebar')
 
@@ -13,103 +23,54 @@
                 <div class="topbar-left">
                     <a href="{{ url('Admin-Dashboard') }}" class="logo">
                         <span class="logo-light">
-                            Bd Book Shop
+                            <a href="#"><img src="{{asset('public/frontEnd/img/logo.png')}}"></a>
                         </span>
-                        <span class="logo-sm">
-                            All
-                        </span>
+                        {{-- <span class="logo-sm">
+                            <a href="#"><img src="{{asset('public/frontEnd/img/ddd.png')}}"></a>
+                        </span> --}}
                     </a>
                 </div>
 
                 <nav class="navbar-custom">
                     <ul class="navbar-right list-inline float-right mb-0">
 
-                        <!-- language-->
-                        {{-- <li class="dropdown notification-list list-inline-item d-none d-md-inline-block">
-                            <a class="nav-link dropdown-toggle arrow-none waves-effect" data-toggle="dropdown" href="#"
-                                role="button" aria-haspopup="false" aria-expanded="false">
-                                <img src="{{ asset('public/BackEnd/assets/images/flags/us_flag.jpg') }}" class="mr-2"
-                                    height="12" alt="" /> English <span class="mdi mdi-chevron-down"></span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated language-switch">
-                                <a class="dropdown-item" href="#"><img
-                                        src="{{ asset('public/BackEnd/assets/images/flags/french_flag.jpg') }}" alt=""
-                                        height="16" /><span> French </span></a>
-                                <a class="dropdown-item" href="#"><img
-                                        src="{{ asset('public/BackEnd/assets/images/flags/spain_flag.jpg') }}" alt=""
-                                        height="16" /><span> Spanish </span></a>
-                                <a class="dropdown-item" href="#"><img
-                                        src="{{ asset('public/BackEnd/assets/images/flags/russia_flag.jpg') }}" alt=""
-                                        height="16" /><span> Russian </span></a>
-                                <a class="dropdown-item" href="#"><img
-                                        src="{{ asset('public/BackEnd/assets/images/flags/germany_flag.jpg') }}" alt=""
-                                        height="16" /><span> German </span></a>
-                                <a class="dropdown-item" href="#"><img
-                                        src="{{ asset('public/BackEnd/assets/images/flags/italy_flag.jpg') }}" alt=""
-                                        height="16" /><span> Italian </span></a>
-                            </div>
-                        </li> --}}
-
                         <!-- full screen -->
-                        <li class="dropdown notification-list list-inline-item d-none d-md-inline-block">
+                        {{-- <li class="dropdown notification-list list-inline-item d-none d-md-inline-block">
                             <a class="nav-link waves-effect" href="#" id="btn-fullscreen">
                                 <i class="mdi mdi-arrow-expand-all noti-icon"></i>
                             </a>
-                        </li>
+                        </li> --}}
 
                         <!-- notification -->
+                        <li class="dropdown notification-list list-inline-item">
+                            <a class="nav-link dropdown-toggle arrow-none waves-effect" href="{{url('/')}}"
+                                role="button">
+                                <i class="mdi mdi-home noti-icon"></i>
+                            </a>
+                        </li>
                         <li class="dropdown notification-list list-inline-item">
                             <a class="nav-link dropdown-toggle arrow-none waves-effect" data-toggle="dropdown" href="#"
                                 role="button" aria-haspopup="false" aria-expanded="false">
                                 <i class="mdi mdi-bell-outline noti-icon"></i>
-                                <span class="badge badge-pill badge-danger noti-icon-badge">3</span>
+                                <span class="badge badge-pill badge-danger noti-icon-badge">{{$Allpending_orders->count()}}</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated dropdown-menu-lg px-1">
                                 <!-- item-->
                                 <h6 class="dropdown-item-text">
-                                    Notifications
+                                    New Order
                                 </h6>
                                 <div class="slimscroll notification-item-list">
-                                    <!-- item-->
-                                    <a href="javascript:void(0);" class="dropdown-item notify-item active">
-                                        <div class="notify-icon bg-success"><i class="mdi mdi-cart-outline"></i></div>
-                                        <p class="notify-details"><b>Your order is placed</b><span class="text-muted">Dummy
-                                                text of the printing and typesetting industry.</span></p>
-                                    </a>
-
-                                    <!-- item-->
-                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                        <div class="notify-icon bg-danger"><i class="mdi mdi-message-text-outline"></i>
-                                        </div>
-                                        <p class="notify-details"><b>New Message received</b><span class="text-muted">You
-                                                have 87 unread messages</span></p>
-                                    </a>
-
-                                    <!-- item-->
-                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                        <div class="notify-icon bg-info"><i class="mdi mdi-filter-outline"></i></div>
-                                        <p class="notify-details"><b>Your item is shipped</b><span class="text-muted">It is
-                                                a long established fact that a reader will</span></p>
-                                    </a>
-
-                                    <!-- item-->
-                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                        <div class="notify-icon bg-success"><i class="mdi mdi-message-text-outline"></i>
-                                        </div>
-                                        <p class="notify-details"><b>New Message received</b><span class="text-muted">You
-                                                have 87 unread messages</span></p>
-                                    </a>
-
-                                    <!-- item-->
-                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                        <div class="notify-icon bg-warning"><i class="mdi mdi-cart-outline"></i></div>
-                                        <p class="notify-details"><b>Your order is placed</b><span class="text-muted">Dummy
-                                                text of the printing and typesetting industry.</span></p>
-                                    </a>
-
+                                        @forelse ($pending_orders as $item)
+                                        <a href="javascript:void(0);" class="dropdown-item notify-item active">
+                                            <div class="notify-icon bg-success"><i class="mdi mdi-cart-outline"></i></div>
+                                            <p class="notify-details"><b>Order ID: {{$item->tracking_code}}</b><span class="text-muted">{{$item->total}} ৳</span></p>
+                                        </a>
+                                        @empty
+                                            <h3>No New Order</h3>
+                                        @endforelse
                                 </div>
                                 <!-- All-->
-                                <a href="javascript:void(0);" class="dropdown-item text-center notify-all text-primary">
+                                <a href="{{url('pending_order')}}" class="dropdown-item text-center notify-all text-primary">
                                     View all <i class="fi-arrow-right"></i>
                                 </a>
                             </div>
@@ -123,14 +84,6 @@
                                         class="rounded-circle">
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
-                                    <!-- item-->
-                                    {{-- <a class="dropdown-item" href="#"><i class="mdi mdi-account-circle"></i> Profile</a>
-                                    <a class="dropdown-item" href="#"><i class="mdi mdi-wallet"></i> Wallet</a>
-                                    <a class="dropdown-item d-block" href="#"><span
-                                            class="badge badge-success float-right">11</span><i
-                                            class="mdi mdi-settings"></i> Settings</a>
-                                    <a class="dropdown-item" href="#"><i class="mdi mdi-lock-open-outline"></i> Lock
-                                        screen</a> --}}
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item text-danger" href="{{url('log_out')}}"><i class="mdi mdi-power text-danger"></i>
                                         Logout</a>
@@ -142,17 +95,10 @@
 
                     <ul class="list-inline menu-left mb-0">
                         <li class="float-left">
-                            <button class="button-menu-mobile open-left waves-effect">
-                                <i class="mdi mdi-menu"></i>
-                            </button>
+
                         </li>
                         <li class="d-none d-md-inline-block">
-                            {{-- <form role="search" class="app-search">
-                                <div class="form-group mb-0">
-                                    <input type="text" class="form-control" placeholder="Search..">
-                                    <button type="submit"><i class="fa fa-search"></i></button>
-                                </div>
-                            </form> --}}
+
                         </li>
                     </ul>
 
@@ -166,7 +112,7 @@
                     <div id="sidebar-menu">
                         <!-- Left Menu Start -->
                         <ul class="metismenu" id="side-menu">
-                            <li class="menu-title">Menu</li>
+
                             <li>
                                 <a href="{{url('Admin-Dashboard')}}" class="waves-effect">
                                     <i class="icon-accelerator"></i><span> Dashboard </span>
@@ -182,7 +128,7 @@
                                     <li><a href="{{url('sub_category')}}">Sub-Category</a></li>
                                     {{-- <li><a href="{{url('add_product')}}">Add Products</a></li> --}}
                                     <li><a href="{{url('all_products')}}">All Products</a></li>
-                                    <li><a href="{{url('all_coupon')}}">Coupon</a></li>
+                                    {{-- <li><a href="{{url('all_coupon')}}">Coupon</a></li> --}}
 
                                 </ul>
                             </li>
@@ -204,7 +150,7 @@
                                     <li><a href="{{url('confirm_order')}}">Confirmed Orders</a></li>
                                     <li><a href="{{url('processing_order')}}">Processing Orders</a></li>
                                     <li><a href="{{url('delivery_done')}}">Delivery Done</a></li>
-                                    <li><a href="{{url('cancel_order')}}">Cancel Order</a></li>
+                                    {{-- <li><a href="{{url('cancel_order')}}">Cancel Order</a></li> --}}
                                 </ul>
                             </li>
                             <li>
@@ -212,7 +158,7 @@
                                     <span>Site Setting <span class="float-right menu-arrow"><i
                                                 class="mdi mdi-chevron-right"></i></span> </span> </a>
                                 <ul class="submenu">
-                                    <li><a href="ui-alerts.html">Site Setting</a></li>
+                                    <li><a href="{{URL('site_setting')}}">Site Setting</a></li>
                                     <li><a href="{{url('seo')}}">Seo</a></li>
                                     <li><a href="ui-buttons.html">NewsLetter</a></li>
                                 </ul>

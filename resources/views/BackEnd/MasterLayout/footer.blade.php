@@ -1,7 +1,7 @@
 @extends('BackEnd.MasterLayout.master')
 @section('footer')
 <footer class="footer">
-    © 2021 BD BOOKSHOP <span class="d-none d-sm-inline-block"> -Developed By Sourav</span>.
+    © {{date('Y')}} BD BOOKSHOP <span class="d-none d-sm-inline-block"> -Developed By Sourav</span>.
 </footer>
 
 </div>

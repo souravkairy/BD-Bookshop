@@ -1,4 +1,3 @@
-
 @extends('FrontEnd.MasterLayout.master')
 @section('topSellingProducts')
 
@@ -8,9 +7,9 @@
 		<div class="page_header">
 			<div class="breadcrumbs">
 				<ul>
-					<li><a href="#">Home</a></li>
+					{{-- <li><a href="#">Home</a></li>
 					<li><a href="#">Category</a></li>
-					<li>Page active</li>
+					<li>Page active</li> --}}
 				</ul>
 		</div>
 		<h1>Customer Info</h1>
@@ -30,10 +29,11 @@
 			</div>
 			<div class="col-xl-9 col-lg-6 col-md-8">
 				<div class="box_account">
+                    <h6>Order No - 1</h6>
                     <table class="table table-striped cart-list">
                         <thead>
                             <tr>
-                                <th style="width: 40%">
+                                <th style="width: 35%">
                                     Product
                                 </th>
                                 <th style="width: 7%">
@@ -48,9 +48,7 @@
                                 <th>
                                     Date
                                 </th>
-                                <th>
-                                    Status
-                                </th>
+
                                 <th>
                                     T-Code
                                 </th>
@@ -58,12 +56,8 @@
                         </thead>
                         <tbody>
                             @foreach ($orderDetails as $orderDetails)
-
                             <tr>
                                 <td>
-                                {{-- <div class="thumb_cart">
-                                    <img src="img/products/product_placeholder_square_small.jpg" data-src="img/products/shoes/1.jpg" class="lazy" alt="Image">
-                                </div> --}}
                                     <span class="item_cart">{{$orderDetails->product_name}}</span>
                                 </td>
                                 <td>
@@ -75,29 +69,30 @@
                                 <td>
                                     <strong>{{$orderDetails->total_price}}</strong>
                                 </td>
-                                <td>
-                                    <strong>{{$order->date}}</strong>
-                                </td>
+
                                 <td>@if ($order->status == 1)
-                                    <button class="btn_1">Order Accepted</button>
+                                    <button class="">Order Accepted</button>
                                     @elseif($order->status == 2)
-                                    <button class="btn_1">Delivery In Progress</button>
+                                    <button class="">Delivery In Progress</button>
                                     @elseif($order->status == 3)
-                                    <button class="btn_1">Delivery Done</button>
+                                    <button class="">Delivery Done</button>
                                     @elseif($order->status == 4)
-                                    <button class="btn_1">Cancel</button>
+                                    <button class="">Cancel</button>
                                     @elseif($order->status ==0)
-                                    <button class="btn_1">Pending</button>
+                                    <button class="">Pending</button>
                                     @endif
-                                    {{-- <strong>{{$order->status}}</strong> --}}
+
                                 </td>
                                 <td>
                                     <strong>{{$order->tracking_code}}</strong>
                                 </td>
                             </tr>
                             @endforeach
+                            <tr> Shipping Charge - {{$order->shipping_charge}}</tr>
                         </tbody>
                     </table>
+
+                    <button class="btn_1 float-right"> Total Ammount - {{$order->total}}</button>
 				</div>
 				<!-- /box_account -->
 			</div>
