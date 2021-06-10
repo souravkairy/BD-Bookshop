@@ -1,5 +1,6 @@
 @php
-$site_setting = DB::table('site_setting_tabel')->first();
+$site_setting = DB::table('site_setting')->first();
+$slider = DB::table('slider')->get();
 @endphp
 @extends('BackEnd/MasterLayout/master')
 @section('dashboard')
@@ -24,20 +25,20 @@ $site_setting = DB::table('site_setting_tabel')->first();
                                         <div class="form-group">
                                             {{-- <label>Logo</label> --}}
                                             {{-- <input type="file" name="logo" class="form-control"  placeholder="Site Logo"/> --}}
-                                            <img src="{{$site_setting->logo}}" alt="">
+                                            <img src="{{$site_setting->logo ?? '---'}}" alt="">
                                             <input type="hidden" value="{{$site_setting->id}}" name="id">
                                         </div>
                                         <div class="form-group">
                                             <label>C.Number</label>
-                                            <input value="{{$site_setting->contact_number}}" type="text" class="form-control" name="contact_number"  placeholder="Contact Number"/>
+                                            <input value="{{$site_setting->contact_number ?? '---'}}" type="text" class="form-control" name="contact_number"  placeholder="Contact Number"/>
                                         </div>
                                         <div class="form-group">
                                             <label>Email</label>
-                                            <input value="{{$site_setting->email}}" type="text" class="form-control" name="email"  placeholder="Contact Email"/>
+                                            <input value="{{$site_setting->email ?? '---'}}" type="text" class="form-control" name="email"  placeholder="Contact Email"/>
                                         </div>
                                         <div class="form-group">
                                             <label>Address</label>
-                                            <input value="{{$site_setting->address}}" type="text" class="form-control" name="address"  placeholder="Address"/>
+                                            <input value="{{$site_setting->address ?? '---'}}" type="text" class="form-control" name="address"  placeholder="Address"/>
                                         </div>
                                         <div class="form-group">
                                             <button class="btn btn-success btn-lg btn-block waves-effect waves-light" type="submit">Submit</button>
@@ -61,29 +62,16 @@ $site_setting = DB::table('site_setting_tabel')->first();
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @forelse ($slider as $row)
                                             <tr>
-                                                <td><img style="width: 10%;" src="" alt=""></td>
+                                                <td><img style="width: 40%;" src="{{$row->slider_image}}" alt=""></td>
                                                 <td>
-                                                    <a href="" class=""><i class="fas fa-trash-alt btn btn-danger"></i></a>
+                                                    <a href="{{url('delete-slider/'.$row->id)}}" class=""><i class="fas fa-trash-alt btn btn-danger"></i></a>
                                                 </td>
                                             </tr>
+                                            @empty
 
-                                        {{-- <?php foreach ($fetchData as $row) { ?>
-                                        <tr>
-                                            <td>{{$i}}</td>
-                                            <td>{{$row->category_name}}</td>
-                                            <td>{{$row->category_desc}}</td>
-                                            <td>
-                                                <span class="badge badge-success">Active</span>
-                                            </td>
-                                            <td>
-                                                <a href="" class=""><i
-                                                        class="fab fa-nintendo-switch btn btn-success"></i></a>
-                                                <a href="" class=""><i class="fas fa-user-edit btn btn-warning"></i></a>
-                                                <a href="{{url('dlt_cat/'.$row->id)}}" class=""><i class="fas fa-trash-alt btn btn-danger"></i></a>
-                                            </td>
-                                        </tr>
-                                        <?php $i++;} ?> --}}
+                                            @endforelse
                                     </tbody>
                                 </table>
                                 <button type="button" class="btn btn-light waves-effect mb-3 btn-lg btn-block" data-toggle="modal"
@@ -95,22 +83,24 @@ $site_setting = DB::table('site_setting_tabel')->first();
                             <div class="card m-b-30">
                                 <div class="card-body">
                                     <h4 class="mt-0 header-title">Social Link</h4>
-                                    <form class="" action="#">
+                                    <form class="" action="{{url('save_site_setting_data')}}" method="POST" enctype="multipart/form-data">
+                                        @csrf
                                         <div class="form-group">
                                             <label>Facebook</label>
-                                            <input type="text" name="title" class="form-control"  placeholder="Facebook"/>
+                                            <input type="hidden" value="{{$site_setting->id}}" name="id">
+                                            <input type="text" name="facebook" class="form-control" value="{{$site_setting->facebook ?? '---'}}"/>
                                         </div>
                                         <div class="form-group">
-                                            <label>Twitter</label>
-                                            <input value="" type="text" class="form-control" name="share_title"  placeholder="Twitter"/>
+                                            <label>Whatsapp</label>
+                                            <input value="{{$site_setting->whatsapp ?? '---'}}" type="text" class="form-control" name="whatsapp" />
                                         </div>
                                         <div class="form-group">
                                             <label>Instagram</label>
-                                            <input value="" type="text" class="form-control" name="share_title"  placeholder="Instagram"/>
+                                            <input value="{{$site_setting->instagram ?? '---'}}" type="text" class="form-control" name="instagram" />
                                         </div>
                                         <div class="form-group">
                                             <label>Youtube</label>
-                                            <input value="" type="text" class="form-control" name="share_title"  placeholder="Youtube"/>
+                                            <input value="{{$site_setting->youtube ?? '---'}}" type="text" class="form-control" name="youtube"  value="{{$site_setting->youtube ?? '---'}}"/>
                                         </div>
                                         <div class="form-group">
                                             <button class="btn btn-success btn-lg btn-block waves-effect waves-light" type="submit">Submit</button>
@@ -143,23 +133,27 @@ $site_setting = DB::table('site_setting_tabel')->first();
                 <div class="modal-body">
                     <div class="card m-b-30">
                         <div class="card-body">
-                            <form class="" action="{{url('save_brand')}}" method="POST" enctype="multipart/form-data">
+                            <form class="" action="{{url('save_slider')}}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
                                     <label>Heading</label>
-                                    <input type="text" class="form-control" name="Slider Heading" required placeholder="Slider Heading"/>
+                                    <input type="text" class="form-control" name="slider_heading" required placeholder="Slider Heading"/>
                                 </div>
                                 <div class="form-group">
                                     <label>Sub-Heading</label>
-                                    <input type="text" class="form-control" name="Slider Sub Heading" required placeholder="Slider Sub Heading"/>
+                                    <input type="text" class="form-control" name="slider_sub_heading" required placeholder="Slider Sub Heading"/>
                                 </div>
                                 <div class="form-group">
                                     <label>Button</label>
-                                    <input type="text" class="form-control" name="Button Text" required placeholder="Button Text"/>
+                                    <input type="text" class="form-control" name="button_text" required placeholder="Button Text"/>
+                                </div>
+                                <div class="form-group">
+                                    <label>Button Link</label>
+                                    <input type="text" class="form-control" name="button_link" required placeholder="https://"/>
                                 </div>
                                 <div class="form-group">
                                     <label>Image</label>
-                                    <input type="file" class="form-control" name="brand_image" required/>
+                                    <input type="file" class="form-control" name="slider_image" required/>
                                 </div>
 
                                 <div class="form-group">
@@ -170,7 +164,6 @@ $site_setting = DB::table('site_setting_tabel')->first();
                                     </div>
                                 </div>
                             </form>
-
                         </div>
                         </form>
 

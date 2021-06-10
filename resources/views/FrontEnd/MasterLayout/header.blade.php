@@ -2,7 +2,7 @@
     $cat = DB::table('category')->get();
     $cart_details = Cart::content();
     $product = DB::table('product')->get();
-    $site_setting = DB::table('site_setting_tabel')->first();
+    $site_setting = DB::table('site_setting')->first();
 
 @endphp
 @extends('FrontEnd.MasterLayout.master')

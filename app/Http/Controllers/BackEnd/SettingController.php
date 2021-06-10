@@ -40,23 +40,106 @@ class SettingController extends Controller
     }
     public function save_site_setting_data(Request $request)
     {
+        if ($request->facebook || $request->youtube ||$request->instagram || $request->whatsapp) {
+            $data = array();
+            $id = $request->id;
+            $facebook = $request->facebook;
+            $youtube = $request->youtube;
+            $instagram = $request->instagram;
+            $whatsapp= $request->whatsapp;
 
+            $save = DB::table('site_setting')->where('id',$id)->update(['facebook'=> $facebook ,'youtube'=> $youtube ,
+            'instagram'=> $instagram ,'whatsapp'=> $whatsapp ]);
+            if ($save) {
+                $notification = array(
+                    'message' => 'Site Setting Updated Successfully',
+                    'alert-type' => 'success'
+                );
+
+                return redirect('site_setting')->with($notification);
+            }
+            else
+            {
+                $notification = array(
+                    'message' => 'Somethings is wrong',
+                    'alert-type' => 'error'
+                );
+                return redirect('site_setting')->with($notification);
+            }
+        }
+        else{
+            $data = array();
+            $id = $request->id;
+            $contact_number = $request->contact_number;
+            $email= $request->email;
+            $address= $request->address;
+            $save = DB::table('site_setting')->where('id',$id)->update(['contact_number'=>$contact_number,'email'=>$email,
+            'address'=>$address,]);
+            if ($save) {
+                $notification = array(
+                    'message' => 'Site Setting Updated Successfully',
+                    'alert-type' => 'success'
+                );
+
+                return redirect('site_setting')->with($notification);
+            }
+            else
+            {
+                $notification = array(
+                    'message' => 'Somethings is wrong',
+                    'alert-type' => 'error'
+                );
+                return redirect('site_setting')->with($notification);
+            }
+        }
+
+
+
+    }
+    public function save_slider(Request $request)
+    {
         $data = array();
-        $id = $request->id;
-        $data['contact_number'] = $request->contact_number;
-        $data['email'] = $request->email;
-        $data['address'] = $request->address;
+        $data['slider_heading'] = $request->slider_heading;
+        $data['slider_sub_heading'] = $request->slider_sub_heading;
+        $data['button_text'] = $request->button_text;
+        $data['button_link'] = $request->button_link;
+        $slider_image =$request->slider_image;
 
-        // $logo =$request->logo;
+        $image= hexdec(uniqid()).'.'.$slider_image->getClientOriginalExtension();
+        Image::make($slider_image)->save('public/ExtraImages/slider_image/'.$image);
+        $data['slider_image']='public/ExtraImages/slider_image/'.$image;
 
-        // $image= hexdec(uniqid()).'.'.$logo->getClientOriginalExtension();
-        // Image::make($logo)->save('public/ExtraImages/sitesetting/'.$image);
-        // $data['logo']='public/ExtraImages/sitesetting/'.$image;
-
-        $save = DB::table('site_setting_tabel')->where('id',$id)->update($data);
+        $save = DB::table('slider')->insert($data);
         if ($save) {
             $notification = array(
                 'message' => 'Site Setting Updated Successfully',
+                'alert-type' => 'success'
+            );
+
+            return redirect('site_setting')->with($notification);
+        }
+        else
+        {
+            $notification = array(
+                'message' => 'Somethings is wrong',
+                'alert-type' => 'error'
+            );
+            return redirect('site_setting')->with($notification);
+        }
+    }
+    public function delete_slider($id)
+    {
+	  $data =  DB::table('slider')
+                    ->where('id',$id)
+                    ->first();
+
+        $image =  $data->slider_image;
+        unlink($image);
+
+        $save = DB::table('slider')->where('id',$id)->delete();
+        if ($save) {
+            $notification = array(
+                'message' => 'Slider Deleted Successfully',
                 'alert-type' => 'success'
             );
 

@@ -100,6 +100,8 @@ Route::post('/order_cancel', 'App\Http\Controllers\BackEnd\OrdersController@orde
 Route::get('/seo', 'App\Http\Controllers\BackEnd\SeoController@index');
 Route::get('/site_setting', 'App\Http\Controllers\BackEnd\SettingController@site_setting');
 Route::post('/save_site_setting_data', 'App\Http\Controllers\BackEnd\SettingController@save_site_setting_data');
+Route::post('/save_slider', 'App\Http\Controllers\BackEnd\SettingController@save_slider');
+Route::get('/delete-slider/{id}', 'App\Http\Controllers\BackEnd\SettingController@delete_slider');
 
 Route::get('/stock_product_list', 'App\Http\Controllers\BackEnd\StockController@stock_product_list');
 Route::get('/stockDetails/{id}', 'App\Http\Controllers\BackEnd\StockController@stockDetails');

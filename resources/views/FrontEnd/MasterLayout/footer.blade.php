@@ -1,6 +1,6 @@
 @php
     $sub_category = DB::table('sub_category')->orderBy('id','desc')->limit(6)->get();
-    $site_setting = DB::table('site_setting_tabel')->first();
+    $site_setting = DB::table('site_setting')->first();
 @endphp
 @extends('FrontEnd.MasterLayout.master')
 @section('footer')
@@ -55,10 +55,10 @@
                     <div class="follow_us">
                         <h5>Follow Us</h5>
                         <ul>
-                            <li><a href="#0"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="{{asset('public/frontEnd/img/twitter_icon.svg')}}" alt="" class="lazy"></a></li>
-                            <li><a href="#0"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="{{asset('public/frontEnd/img/facebook_icon.svg')}}" alt="" class="lazy"></a></li>
-                            <li><a href="#0"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="{{asset('public/frontEnd/img/instagram_icon.svg')}}" alt="" class="lazy"></a></li>
-                            <li><a href="#0"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="{{asset('public/frontEnd/img/youtube_icon.svg')}}" alt="" class="lazy"></a></li>
+                            <li><a href="#0"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="{{asset('public/frontEnd/img/whatsapp.svg')}}" alt="" class="lazy"></a></li>
+                            <li><a href="{{$site_setting->facebook}}"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="{{asset('public/frontEnd/img/facebook_icon.svg')}}" alt="" class="lazy"></a></li>
+                            <li><a href="{{$site_setting->instagram}}"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="{{asset('public/frontEnd/img/instagram_icon.svg')}}" alt="" class="lazy"></a></li>
+                            <li><a href="{{$site_setting->youtube}}"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="{{asset('public/frontEnd/img/youtube_icon.svg')}}" alt="" class="lazy"></a></li>
                         </ul>
                     </div>
                 </div>

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSiteSettingTabel extends Migration
+class CreateSiteSettingTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,18 @@ class CreateSiteSettingTabel extends Migration
      */
     public function up()
     {
-        Schema::create('site_setting_tabel', function (Blueprint $table) {
+        Schema::create('site_setting', function (Blueprint $table) {
             $table->increments('id');
             $table->string('logo')->nullable();
             $table->string('contact_number');
             $table->string('email');
             $table->string('address');
+            $table->string('facebook')->nullable();
+            $table->string('whatsapp')->nullable();
+            $table->string('instagram')->nullable();
+            $table->string('youtube')->nullable();
         });
+
     }
 
     /**
@@ -29,6 +34,6 @@ class CreateSiteSettingTabel extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('site_setting_tabel');
+        Schema::dropIfExists('site_setting');
     }
 }
