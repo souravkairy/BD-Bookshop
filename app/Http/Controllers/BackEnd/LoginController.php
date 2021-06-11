@@ -13,11 +13,9 @@ class LoginController extends Controller
     {
         $header = view('BackEnd/MasterLayout/header');
         $loginpage = view('BackEnd/LoginLayout/loginpage');
-        $footer = view('BackEnd/MasterLayout/footer');
         return view('BackEnd/MasterLayout/master')
             ->with('header', $header)
-            ->with('sidebar', $loginpage)
-            ->with('footer', $footer);
+            ->with('sidebar', $loginpage);
 
     }
     public function data_ck(request $request)

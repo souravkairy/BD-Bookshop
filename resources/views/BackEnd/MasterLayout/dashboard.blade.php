@@ -10,11 +10,16 @@
                     ->orderBy('id', 'desc')
                     ->limit(10)
                     ->get();
+    $id = Session::get('id');
+    $role_permission = DB::table('admin_login')
+                                ->where('id',$id)
+                                ->first();
 
 @endphp
 
 @extends('BackEnd.MasterLayout.master')
 @section('dashboard')
+@if ($role_permission->dashboard == 1)
 <div class="content-page">
     <!-- Start content -->
     <div class="content">
@@ -238,6 +243,5 @@
 
     </div>
     <!-- content -->
-
-
+@endif
 @endsection

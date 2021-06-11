@@ -154,4 +154,71 @@ class SettingController extends Controller
             return redirect('site_setting')->with($notification);
         }
     }
+    public function admin_role()
+    {
+        $header = view('BackEnd/MasterLayout/header');
+        $sidebar = view('BackEnd/MasterLayout/sidebar');
+        $admin_role = view('BackEnd/AdminRoleLayout/admin_role');
+        $footer = view('BackEnd/MasterLayout/footer');
+        return view('BackEnd/MasterLayout/master')
+            ->with('header', $header)
+            ->with('sidebar', $sidebar)
+            ->with('dashboard', $admin_role)
+            ->with('footer', $footer);
+    }
+    public function save_admin_role_data(Request $request)
+    {
+        $md5 = md5($request->password);
+        $data['user_name'] = $request->user_name;
+        $data['email'] = $request->email;
+        $data['password'] = $md5;
+        $data['dashboard'] = $request->dashboard;
+        $data['product_section'] = $request->product_section;
+        $data['job_section'] = $request->job_section;
+        $data['order_section'] = $request->order_section;
+        $data['site_setting'] = $request->site_setting;
+        $data['contact_section'] = $request->contact_section;
+        $data['blog_section'] = $request->blog_section;
+        $data['stock_section'] = $request->stock_section;
+        $data['status'] = 1;
+
+        $save = DB::table('admin_login')->insert($data);
+        if ($save) {
+            $notification = array(
+                'message' => 'Added Successfully',
+                'alert-type' => 'success'
+            );
+
+            return redirect('admin_role')->with($notification);
+        }
+        else
+        {
+            $notification = array(
+                'message' => 'Somethings is wrong',
+                'alert-type' => 'error'
+            );
+            return redirect('admin_role')->with($notification);
+        }
+
+    }
+    public function delete_admin_role($id)
+    {
+        $delete = DB::table('admin_login')->where('id',$id)->delete();
+        if ($delete) {
+            $notification = array(
+                'message' => ' Deleted Successfully',
+                'alert-type' => 'success'
+            );
+
+            return redirect('admin_role')->with($notification);
+        }
+        else
+        {
+            $notification = array(
+                'message' => 'Somethings is wrong',
+                'alert-type' => 'error'
+            );
+            return redirect('admin_role')->with($notification);
+        }
+    }
 }

@@ -8,7 +8,7 @@
                     <a href="index.html" class="logo logo-admin"><img src="assets/images/logo-dark.png" alt=""
                             height="24"></a>
                 </div>
-                <h5 class="font-18 text-center">Sign in to continue to Stexo.</h5>
+                <h5 class="font-18 text-center">Sign in to continue Admin-Panel</h5>
 
                 <form class="form-horizontal m-t-30" action="{{url('data_ck')}}" method="POST">
                     @csrf
@@ -42,16 +42,16 @@
                     </div>
                     <div class="form-group row m-t-30 m-b-0">
                         <div class="col-sm-7">
-                            <a href="pages-recoverpw.html" class="text-muted"><i class="fa fa-lock m-r-5"></i> Forgot your
-                                password?</a>
+                            {{-- <a href="pages-recoverpw.html" class="text-muted"><i class="fa fa-lock m-r-5"></i> Forgot your
+                                password?</a> --}}
                         </div>
                         <div class="col-sm-5 text-right">
-                            <a href="pages-register.html" class="text-muted">Create an account</a>
+                            {{-- <a href="pages-register.html" class="text-muted">Create an account</a> --}}
                         </div>
                     </div>
                 </form>
             </div>
-
         </div>
     </div>
+
 @endsection

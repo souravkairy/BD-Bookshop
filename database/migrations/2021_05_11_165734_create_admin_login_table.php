@@ -19,9 +19,16 @@ class CreateAdminLoginTable extends Migration
             $table->string('user_name');
             $table->string('email');
             $table->string('password');
+            $table->tinyInteger('dashboard')->default(0)->nullable();
+            $table->tinyInteger('product_section')->default(0)->nullable();
+            $table->tinyInteger('job_section')->default(0)->nullable();
+            $table->tinyInteger('order_section')->default(0)->nullable();
+            $table->tinyInteger('site_setting')->default(0)->nullable();
+            $table->tinyInteger('contact_section')->default(0)->nullable();
+            $table->tinyInteger('blog_section')->default(0)->nullable();
+            $table->tinyInteger('stock_section')->default(0)->nullable();
             $table->tinyInteger('status');
             $table->timestamp('created_at')->useCurrent();
-
         });
     }
 
