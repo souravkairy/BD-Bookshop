@@ -137,7 +137,7 @@ class ProductsController extends Controller
                     'message' => 'Product deleted successfully',
                     'alert-type' => 'success'
                 );
-           return redirect('all_products')->back($notification);
+           return redirect('all_products')->with($notification);
        }
     }
 }
